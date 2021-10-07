@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            .and()
            .logout().logoutSuccessUrl("/").permitAll();
    }
+   
 
 public DataSource getDataSource() {
 	return dataSource;
