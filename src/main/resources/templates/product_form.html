@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Product Registration -</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container text-center">
+        <div>
+            <h1>Product Registration - Sign Up</h1>
+        </div>
+        <form th:action="@{/product_register/save}" th:object="${product}" 
+          enctype="multipart/form-data"
+            method="post" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Created By:- </label>
+                <div class="col-8">
+                    <h6 class="form-control">[[${#request.userPrincipal.principal.userEmail}]]</h6>
+                </div>
+            </div>
+             
+             
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Product Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{productName}" class="form-control"
+                            />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Product Price: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{productPrice}" class="form-control"
+                           />
+                </div>
+            </div>
+             
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Product Details: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{productDetail}" class="form-control"
+                            />
+                </div>
+            </div>
+             <div class="form-group row">
+                <label class="col-4 col-form-label">Product Image: </label>
+                <div class="col-8">
+                    <input type="file" name="fileImage" id="fileImage" accept="image/png, image/jpeg" class="form-control"
+                            required />
+                </div>
+            </div> 
+            <div class="form-group row">
+            <img id="thumbnail" alt="Logo Preview" />
+            </div>
+             
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$('#fileImage').change(function() {
+    		
+    		showImageThumbnail(this);
+    	})
+    });
+    
+    function showImageThumbnail(fileInput) {
+    	file = fileInput.files[0];
+    	reader = new FileReader();
+    	reader.onload = function(e) {
+    		$('#thumbnail').attr('src', e.target.result);
+    	};
+    	reader.readAsDataURL(file);
+    }
+    
+    
+    </script>
+</body>
